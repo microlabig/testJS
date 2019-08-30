@@ -1,5 +1,4 @@
 include ../utils/mixins
-block variables
 
 <!DOCTYPE html>
 html(lang="ru")
@@ -7,14 +6,12 @@ html(lang="ru")
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         meta(http-equiv="X-UA-Compatible", content="ie=edge")
-        block stylesheet
-        title #{title}
+        title Аккордион
     body
-        .wrapper
-            main.maincontent
-                #app
-                    include ../includes/modules/header              
-                    block content                            
-            include ../includes/modules/footer
+        .wrapper            
+            main.maincontent            
+                block content
+
+            #app
 
         block script

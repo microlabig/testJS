@@ -1,20 +1,52 @@
 extends ../layout/main.pug
 
-block variables
-    - var title = 'Заголовок'
+mixin accordionItemContent(title,themes)
+    .akkordion__title
+        .akkordion__description #{title}
+    ul.akkordion__themes
+        each thm in themes
+            li.akkordion__theme
+                a(href="#" onClick="event.preventDefault()").akkordion__theme-title #{thm}
 
 block content
-    section
+    section.section
         .container
-            button(
-                type="button"
-                @click="showComponent"
-            ) showComponent
-            example-component(
-                v-if="component"
-            )
-            example-component(
-                v-if="component"
-            )
-            +item('Заголовок h2','Описание')
-            +item('Заголовок 123','Описание')
+            .logo
+                img(src="assets/img/logo.png").logo__icon
+            .akkordion
+                ul.akkordion__list
+                    -
+                     var akkodionItemsArr = [
+                         {
+                             title: "Основы языка и как на нем говорить правильно",
+                             themes: ["Лексическая структура", "Типы данных, значения и переменные", "Выражения и операторы инструкции"]
+                         },
+                         {
+                             title: "Функции",
+                             themes: ["Именованные функции", "Анонимные функции", "Стрелочные функции", "Области видимости функции"]
+                         },
+                         {
+                             title: "Обработка ошибок и отладка",
+                             themes: ["Инструкция throw", "Объект Error", "Конструкция try…catch…finally", "Промисы", "Debugger", "Тестирование кода"]
+                         },
+                         {
+                             title: "Объекты и массивы",
+                             themes: ["Объявление объектов и массивов", "Многомерные массивы", "Методы pop/push, shift/unshift", "Методы массивов", 
+                                      "Перечисление всех свойств объекта", "Клонирование и копирование", "Метод Object.assign", "Определение геттеров и сеттеров"]
+                         },
+                         {
+                             title: "События",
+                             themes: ["Введение в браузерные события", "Обработчики событий", "Доступ к элементу через this, объект события", "Метод add/removeEventListener"]
+                         }
+                     ]
+                    each item, index in akkodionItemsArr
+                        if (index === 0)
+                            li.akkordion__item.is_active
+                                +accordionItemContent(item.title, item.themes)
+                        else
+                            li.akkordion__item
+                                +accordionItemContent(item.title, item.themes)
+                                
+
+
+

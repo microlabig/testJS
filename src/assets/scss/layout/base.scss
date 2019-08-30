@@ -1,0 +1,148 @@
+// Base
+
+@import url('https://necolas.github.io/normalize.css/latest/normalize.css');
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans:300,500');
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: $basefontsize;
+}
+
+body,
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.73;
+    color: #4f4f4f;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+a {
+    color: inherit;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.wrapper {
+    overflow: hidden;
+    min-height: 100%;
+    position: relative;
+}
+
+.maincontent {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.container {
+    max-width: 480px;
+}
+
+// project-style
+
+.section {
+    min-width: 480px;
+}
+
+.logo {
+    max-width: 216px;
+    max-height: 39px;
+    overflow: hidden;
+    margin: 0 auto;    
+    margin-bottom: 23px;
+}
+
+// akkordion
+
+.akkordion__list {
+    width: 100%;
+}
+
+.akkordion__item {
+    border-radius: 21px; // 1/2 от высоты item    
+    margin-bottom: 5px;
+    background-color: #e7e7e7;
+    overflow: hidden;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &:nth-child(odd) .akkordion__title{
+        background-color: #696666;
+        color: #fff;
+    }
+
+    &.is_active {
+        .akkordion__title {
+            background-color: #ff8663;
+
+            &:after {
+                transform: rotate(180deg);
+                border-top-color: #fff;
+            }
+        }
+
+        .akkordion__themes {
+            padding: 12px 20px;
+            height: initial;
+        }
+    }
+}
+
+.akkordion__title {
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+
+    border-radius: 21px;
+    font-weight: 500;
+
+    padding: 12px 20px;
+
+    &:after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 0;
+        border: 14px solid transparent;
+        border-top-color: #ff8663;
+        border-bottom-width: 0;
+        border-left-width: 7px;
+        border-right-width: 7px;
+        transition: .4s;
+    }
+}
+
+.akkordion__themes {
+    padding: 0 20px;
+    height: 0;
+    transition: .4s;
+} 
