@@ -1,0 +1,27 @@
+@import 'layout/variables.scss';
+@import 'layout/fonts.scss';
+@import 'layout/mixins.scss';
+
+h1 {
+    color: rgba(#f00, 0.5);
+}
+h2 {
+    color: red;
+}
+h3 {
+    color: red;
+    font-size: 10px;    
+}
+
+.wrapper {
+    background: svg-load('map.svg', fill=green, stroke=red) center center no-repeat / contain;
+    width: 300px;
+    height: 300px;
+}
+
+body {
+    font-family: $mainfont;
+    font-weight: $bold;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

@@ -1,0 +1,10 @@
+.wrapper {
+    display: flex;
+}
+
+/* .wrapper {
+    background: svg-load('map.svg', fill=green, stroke=red) center center no-repeat / contain;
+    width: 300px;
+    height: 300px;
+    font-size: 14px;
+} */
