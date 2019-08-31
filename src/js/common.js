@@ -1,5 +1,4 @@
-const DELAY = 5000; // задержка анимации в милисекундах
-const DELAYTIMER = 10; // задержка анимации в милисекундах
+const DELAY = 500; // задержка анимации в милисекундах (не менее 400мс, т.к. столько задано в css)
 const HIDDENSTYLE = 'height: 0px; padding-bottom: 0; padding-top: 0;'; // стилевые свойства скрытия всего содержимого элемента списка
 const HIDDENPADDING = 'padding-bottom: 0; padding-top: 0;'; // стилевые свойства скрытия паддингов отдельного элемента списка
 const SHOWENPADDING = 'padding-bottom: 12px; padding-top: 12px;'; // стилевые свойства показа паддингов отдельного элемента списка
@@ -26,8 +25,8 @@ let isAnimate = false; // флаг разрешения анимации
 const heightDown = (elementBlockThemes) => {
     let timerId = null; // идентификатор интервального таймера
     let currentHeight = parseInt(getComputedStyle(elementBlockThemes).height); // определим текущую высоту блока с темами
-    const step = Math.round(currentHeight/ DELAY * DELAYTIMER ); // вычислим шаг относительно общей задержки и высоты блока с темами
-    console.log('stepDown=',step, 'currentHeight=',currentHeight);
+    const step = Math.round(DELAY / currentHeight ); // вычислим шаг относительно общей задержки и высоты блока с темами
+
     elementBlockThemes.style = HIDDENPADDING; // скрыть паддинги
 
     // создадим промис для анимации уменьшения высоты
@@ -35,11 +34,11 @@ const heightDown = (elementBlockThemes) => {
         // создадим интервальный таймер
         timerId = setInterval( () => {
             // вычислим текущую высоту блока с темами
-            currentHeight = parseInt(getComputedStyle(elementBlockThemes).height) - step;
+            currentHeight--;
             // если блок с тмами скрыт - остановить анимацию
             if (currentHeight <= 0) resolve();
             else elementBlockThemes.style.height = `${currentHeight}px`;
-        }, DELAYTIMER);                
+        }, step);                
     }).then( () => {
         clearInterval(timerId); // очистим идентификатор таймера и остановим сам таймер
         isAnimate = false; // анимация завершена
@@ -52,8 +51,7 @@ const heightDown = (elementBlockThemes) => {
 const heightUp = (elementBlockThemes, itemIndex) => {
     let timerId = null; // идентификатор интервального таймера
     let currentHeight = 0;
-    const step = Math.round(heightsThemes[itemIndex] / DELAY * DELAYTIMER ); // вычислим шаг относительно общей задержки и высоты блока с темами
-console.log('stepUp=',step, 'currentHeight=',currentHeight);
+    const step = Math.round(DELAY / heightsThemes[itemIndex]); // вычислим шаг относительно общей задержки и высоты блока с темами
 
     elementBlockThemes.style = SHOWENPADDING; // показать паддинги
 
@@ -62,12 +60,11 @@ console.log('stepUp=',step, 'currentHeight=',currentHeight);
         // создадим интервальный таймер
         timerId = setInterval( () => {
             // вычислим текущую высоту блока с темами
-            currentHeight = parseInt(getComputedStyle(elementBlockThemes).height) + step;
-            console.log('currentHeight=',currentHeight);
+            currentHeight++;
             // если блок с тмами скрыт - остановить анимацию
             if (currentHeight >= heightsThemes[itemIndex]) resolve();
             else elementBlockThemes.style.height = `${currentHeight}px`;
-        }, DELAYTIMER);                
+        }, step);                
     }).then( () => {
         clearInterval(timerId); // очистим идентификатор таймера и остановим сам таймер
         isAnimate = false; // анимация завершена
@@ -79,24 +76,19 @@ console.log('stepUp=',step, 'currentHeight=',currentHeight);
 // ---------------------
 const handler = (e) => {
     const target = e.target || e.srcElement; // найдем элемент, по которому совершили клик/тап
-    let accordionTitle = null; // блок с заголовками тем
-    console.log('---------------------');
-    
+    let accordionTitle = null; // блок с заголовками тем  
     
     // определим объект-заголовок элемента аккордиона 
     if (target.classList.contains('accordion__title')) accordionTitle = target; 
     else accordionTitle = target.parentNode; // иначе, проверим родителя
-
     
-            // определим номер элемента аккордиона, по которому кликнули
-            let currentItem = -1;
-            accordionItemsArr.forEach( item => {
-                const dataItemIndex = item.dataset.index;
-                const dataTargetIndex = accordionTitle.parentNode.dataset.index;
-                //console.log(dataItemIndex,dataTargetIndex);
-                if (dataItemIndex === dataTargetIndex) currentItem = dataTargetIndex;  
-            });       
-            console.log('currentItem=',currentItem, 'heightsThemes[i]=',heightsThemes[currentItem] );
+    // определим номер элемента аккордиона, по которому кликнули
+    let currentItem = -1;
+    accordionItemsArr.forEach( item => {
+        const dataItemIndex = item.dataset.index;
+        const dataTargetIndex = accordionTitle.parentNode.dataset.index;
+        if (dataItemIndex === dataTargetIndex) currentItem = dataTargetIndex;  
+    });
     
     // если объект-заголовок нашелся
     if (accordionTitle.classList.contains('accordion__title') && !isAnimate) {
@@ -130,10 +122,6 @@ const handler = (e) => {
             accordionItem.classList.add('is_active'); // добавить класс is_active
             heightUp(accordionThemes, currentItem);
         }
-        /* 
-        accordionItem.addEventListener('transitionend', e => {
-            isAnimate = false;
-        }); */
     }    
 }
 
