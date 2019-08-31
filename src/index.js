@@ -6,8 +6,8 @@
 import './js/common';
 
 // CSS
-import 'normalize.css';
-import './assets/css/main.css';
+//import 'normalize.css';
+//import './assets/css/main.css';
 
 // SCSS
 import './assets/scss/main.scss';

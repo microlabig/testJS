@@ -48,13 +48,14 @@ img {
     overflow: hidden;
     min-height: 100%;
     position: relative;
-}
-
-.maincontent {
-    width: 100%;
+    
     display: flex;
     justify-content: center;
     align-items: center; 
+}
+
+.maincontent {
+   // margin: 0 auto;
 }
 
 .container {
@@ -75,13 +76,13 @@ img {
     margin-bottom: 23px;
 }
 
-// akkordion
+// accordion
 
-.akkordion__list {
+.accordion__list {
     width: 100%;
 }
 
-.akkordion__item {
+.accordion__item {
     border-radius: 21px; // 1/2 от высоты item    
     margin-bottom: 5px;
     background-color: #e7e7e7;
@@ -91,13 +92,13 @@ img {
         margin-bottom: 0;
     }
 
-    &:nth-child(odd) .akkordion__title{
+    &:nth-child(odd) .accordion__title{
         background-color: #696666;
         color: #fff;
     }
 
     &.is_active {
-        .akkordion__title {
+        .accordion__title {
             background-color: #ff8663;
 
             &:after {
@@ -106,14 +107,14 @@ img {
             }
         }
 
-        .akkordion__themes {
-            padding: 12px 20px;
-            height: initial;
-        }
+        // .accordion__themes {
+        //     padding: 12px 20px;
+        //     height: 100%;
+        // }
     }
 }
 
-.akkordion__title {
+.accordion__title {
     cursor: pointer;
 
     display: flex;
@@ -126,6 +127,8 @@ img {
     font-weight: 500;
 
     padding: 12px 20px;
+
+    transition: .4s;
 
     &:after {
         content: "";
@@ -141,8 +144,10 @@ img {
     }
 }
 
-.akkordion__themes {
-    padding: 0 20px;
-    height: 0;
-    transition: .4s;
+.accordion__themes {
+    padding: 12px 20px;
+    transition: padding .4s;
+    // padding: 0 20px;
+    // height: 0;
+    // transition: height 2s;
 } 
